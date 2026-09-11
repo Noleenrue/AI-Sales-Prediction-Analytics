@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="prediction-page">
+
+    <div class="prediction-header">
+
+        <h1>
+            AI Sales Prediction
+        </h1>
+
+        <p>
+            Select transaction information
+            and predict expected sales.
+        </p>
+
+    </div>
+
+
+    <div class="prediction-card">
+
+        <form method="POST">
+
+            <div class="form-grid">
+
+                <!-- PRODUCT -->
+
+                <div class="form-group">
+
+                    <label>
+                        Product
+                    </label>
+
+                    <select
+                        name="product"
+                        required
+                    >
+
+                        <option
+                            value=""
+                            disabled
+                            selected
+                        >
+                            Select Product
+                        </option>
+
+                        {% for product in products %}
+
+                        <option
+                            value="{{ product.Product }}"
+                        >
+                            {{ product.Product }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- SEGMENT -->
+
+                <div class="form-group">
+
+                    <label>
+                        Segment
+                    </label>
+
+                    <select
+                        name="segment"
+                        required
+                    >
+
+                        <option
+                            value=""
+                            disabled
+                            selected
+                        >
+                            Select Segment
+                        </option>
+
+                        <option value="Consumer">
+                            Consumer
+                        </option>
+
+                        <option value="Corporate">
+                            Corporate
+                        </option>
+
+                        <option value="Home Office">
+                            Home Office
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- REGION -->
+
+                <div class="form-group">
+
+                    <label>
+                        Region
+                    </label>
+
+                    <select
+                        name="region"
+                        required
+                    >
+
+                        <option
+                            value=""
+                            disabled
+                            selected
+                        >
+                            Select Region
+                        </option>
+
+                        <option value="West">
+                            West
+                        </option>
+
+                        <option value="East">
+                            East
+                        </option>
+
+                        <option value="Central">
+                            Central
+                        </option>
+
+                        <option value="South">
+                            South
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- SHIP MODE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Ship Mode
+                    </label>
+
+                    <select
+                        name="shipmode"
+                        required
+                    >
+
+                        <option
+                            value=""
+                            disabled
+                            selected
+                        >
+                            Select Ship Mode
+                        </option>
+
+                        <option value="Standard Class">
+                            Standard Class
+                        </option>
+
+                        <option value="Second Class">
+                            Second Class
+                        </option>
+
+                        <option value="First Class">
+                            First Class
+                        </option>
+
+                        <option value="Same Day">
+                            Same Day
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- QUANTITY -->
+
+                <div class="form-group">
+
+                    <label>
+                        Quantity
+                    </label>
+
+                    <input
+                        type="number"
+                        name="quantity"
+                        min="1"
+                        step="1"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- DISCOUNT -->
+
+                <div class="form-group">
+
+                    <label>
+                        Discount
+                    </label>
+
+                    <input
+                        type="number"
+                        name="discount"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        placeholder="Example: 0.20"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ORDER DATE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Order Date
+                    </label>
+
+                    <input
+                        type="date"
+                        name="order_date"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- SHIP DATE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Ship Date
+                    </label>
+
+                    <input
+                        type="date"
+                        name="ship_date"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="predict-button"
+            >
+                Predict Sales
+            </button>
+
+        </form>
+
+    </div>
+
+
+    {% if predicted_sales is not none %}
+
+    <div class="prediction-result">
+
+        <p>
+            Predicted Sales
+        </p>
+
+        <h2>
+            ${{ "{:,.2f}".format(predicted_sales) }}
+        </h2>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

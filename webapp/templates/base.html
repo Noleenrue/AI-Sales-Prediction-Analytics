@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        AI Sales Prediction System
+        {% endblock %}
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <h2>AI Sales</h2>
+
+            <nav>
+
+                <a href="{{ url_for('home.dashboard') }}"
+                class="{% if request.endpoint == 'home.dashboard' %}active{% endif %}">
+                    Dashboard
+                </a>
+
+                <a href="{{ url_for('prediction.predict') }}"
+                class="{% if request.endpoint == 'prediction.predict' %}active{% endif %}">
+                    Sales Prediction
+                </a>
+
+                <a href="{{ url_for('prediction.prediction_history') }}"
+                class="{% if request.endpoint == 'prediction.prediction_history' %}active{% endif %}">
+                    Prediction History
+                </a>
+
+                <a href="{{ url_for('products.products_page') }}"
+                class="{% if request.endpoint in [
+                    'products.products_page',
+                    'products.create_product_page',
+                    'products.edit_product_page'
+                ] %}active{% endif %}">
+                    Product Management
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="main-content">
+
+            <header>
+
+                <h1>
+                    AI Sales Prediction System
+                </h1>
+
+            </header>
+
+
+            <!-- FLASH MESSAGES -->
+
+            {% with messages = get_flashed_messages(
+                with_categories=true
+            ) %}
+
+                {% if messages %}
+
+                    <div class="flash-container">
+
+                        {% for category, message in messages %}
+
+                            <div class="flash-message {{ category }}">
+                                {{ message }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+            {% endwith %}
+
+
+            <!-- PAGE CONTENT -->
+
+            <section>
+
+                {% block content %}
+                {% endblock %}
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
+

@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h2>Sales Dashboard</h2>
+
+
+<!-- KPI CARDS -->
+
+<div class="kpi-container">
+
+    <div class="kpi-card">
+
+        <h3>Total Sales</h3>
+
+        <p>
+            ${{ "{:,.2f}".format(kpis["total_sales"]) }}
+        </p>
+
+    </div>
+
+
+    <div class="kpi-card">
+
+        <h3>Total Profit</h3>
+
+        <p>
+            ${{ "{:,.2f}".format(kpis["total_profit"]) }}
+        </p>
+
+    </div>
+
+
+    <div class="kpi-card">
+
+        <h3>Total Orders</h3>
+
+        <p>
+            {{ "{:,}".format(kpis["total_orders"]) }}
+        </p>
+
+    </div>
+
+
+    <div class="kpi-card">
+
+        <h3>Total Quantity</h3>
+
+        <p>
+            {{ "{:,}".format(kpis["total_quantity"]) }}
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- MONTHLY SALES -->
+
+<div class="chart-container">
+
+    {{ monthly_sales_chart | safe }}
+
+</div>
+
+
+<!-- SALES BY CATEGORY -->
+
+<div class="chart-container">
+
+    {{ category_chart | safe }}
+
+</div>
+
+
+<!-- PROFIT BY CATEGORY -->
+
+<div class="chart-container">
+
+    {{ profit_chart | safe }}
+
+</div>
+
+<!-- Monthly Sales Trend -->
+<div class="chart-full">
+    <div class="chart-container">
+        {{ monthly_sales_chart | safe }}
+    </div>
+</div>
+
+<!-- Category Charts -->
+<div class="chart-grid">
+
+    <div class="chart-container">
+        {{ category_chart | safe }}
+    </div>
+
+    <div class="chart-container">
+        {{ profit_chart | safe }}
+    </div>
+
+</div>
+
+<!-- Region Charts -->
+<div class="chart-grid">
+
+    <div class="chart-container">
+        {{ region_chart | safe }}
+    </div>
+
+    <div class="chart-container">
+        {{ profit_region_chart | safe }}
+    </div>
+
+</div>
+
+<!-- Top Products -->
+<div class="chart-full">
+    <div class="chart-container">
+        {{ top_products_chart | safe }}
+    </div>
+</div>
+
+<!-- Discount vs Profit -->
+<div class="chart-full">
+    <div class="chart-container">
+        {{ discount_profit_chart | safe }}
+    </div>
+</div>
+
+<!-- Model Evaluation -->
+ <div class="model-metrics">
+
+    <div class="metric-card">
+        <p>MAE</p>
+        <h3>$110.03</h3>
+        <span>Average prediction error</span>
+    </div>
+
+    <div class="metric-card">
+        <p>RMSE</p>
+        <h3>$549.98</h3>
+        <span>Penalizes large prediction errors</span>
+    </div>
+
+    <div class="metric-card">
+        <p>R² Score</p>
+        <h3>0.3510</h3>
+        <span>Variance explained by the model</span>
+    </div>
+
+</div>
+
+<div class="chart-full">
+
+    <div class="chart-container">
+
+        <h2>Actual vs Predicted Sales</h2>
+
+        {{ model_evaluation_chart | safe }}
+
+    </div>
+
+</div>
+{% endblock %}

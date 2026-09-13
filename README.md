@@ -1,15 +1,16 @@
-# AI Sales Prediction System
+# AI Sales Prediction & Analytics System
 
 ## Project Overview
 
-The AI Sales Prediction System is a web-based data analytics and machine learning application developed using Python, Flask, MySQL, Plotly, Pandas, and Scikit-learn.
+The **AI Sales Prediction & Analytics System** is an end-to-end data science and machine learning application developed using **Python, Flask, MySQL, Pandas, Scikit-learn, and Plotly**.
 
-The system analyzes historical sales data from the Sample Superstore dataset and provides interactive sales dashboards, machine learning sales predictions, prediction history, and product management functionality.
+The system analyzes historical sales data from the Sample Superstore dataset and provides interactive business analytics dashboards, machine learning sales predictions, prediction history, and product management functionality.
 
-The application demonstrates the integration of:
+The project demonstrates the integration of:
 
 - Data preprocessing
-- Exploratory data analysis
+- Exploratory Data Analysis (EDA)
+- Feature engineering
 - Relational database design
 - SQL
 - Machine learning
@@ -18,12 +19,13 @@ The application demonstrates the integration of:
 - CRUD operations
 - Web application development
 
+---
 
 ## Main Features
 
 ### 1. Sales Dashboard
 
-The dashboard provides an overview of business sales performance.
+The interactive dashboard provides an overview of business sales performance.
 
 It includes:
 
@@ -39,8 +41,9 @@ It includes:
 - Top 10 Products by Sales
 - Discount vs Average Profit
 
+---
 
-## 2. Machine Learning Sales Prediction
+### 2. Machine Learning Sales Prediction
 
 The system uses a trained machine learning model to predict expected sales for a transaction.
 
@@ -55,9 +58,7 @@ The user provides:
 - Order Date
 - Ship Date
 
-Additional features are automatically calculated from the supplied dates.
-
-These include:
+Additional features are automatically derived from the supplied dates, including:
 
 - Order Month
 - Order Quarter
@@ -65,8 +66,11 @@ These include:
 - Day of Week
 - Shipping Days
 
+---
 
-## 3. Machine Learning Models
+## Machine Learning
+
+### Models Evaluated
 
 The following regression models were evaluated:
 
@@ -74,115 +78,135 @@ The following regression models were evaluated:
 - Random Forest Regressor
 - Gradient Boosting Regressor
 
-Random Forest Regressor achieved the best performance and was selected as the final model.
+The **Random Forest Regressor** was the best-performing model among the models evaluated and was selected as the final prediction model.
 
-Approximate test performance:
+### Model Performance
 
-- MAE: 110.03
-- RMSE: 549.98
-- R²: 0.351
+| Metric | Test Result |
+|---|---:|
+| MAE | 110.03 |
+| RMSE | 549.98 |
+| R² | 0.351 |
 
-The trained machine learning pipeline is stored as:
+The trained machine learning pipeline is stored at:
 
 ```text
 ml/models/sales_prediction_model.pkl
+```
 
-## 4. Model Evaluation
+> **Note:** The R² score indicates that there is still substantial unexplained variation in sales. The model therefore serves as a baseline predictive solution and provides opportunities for further feature engineering and model optimization.
 
-The dashboard contains an Actual vs Predicted Sales visualization.
+---
 
-It compares:
+## Model Evaluation
 
-Actual sales values
-Model predictions
-Perfect prediction reference line
+The application includes an **Actual vs Predicted Sales** visualization for evaluating model predictions.
 
-This visualization helps evaluate how closely predicted sales values correspond to the real values.
+The visualization compares:
 
-## 5. Prediction History
+- Actual sales values
+- Predicted sales values
+- Perfect prediction reference line
 
-Every successful sales prediction is stored in the MySQL database.
+This provides a visual assessment of how closely the model's predictions correspond to observed sales values.
+
+---
+
+## Prediction History
+
+Every successful sales prediction is stored in the **MySQL database**.
 
 The Prediction History page displays information including:
 
-Product
-Category
-Region
-Quantity
-Discount
-Predicted Sales
-Prediction date/time
+- Product
+- Category
+- Region
+- Quantity
+- Discount
+- Predicted Sales
+- Prediction date and time
 
-## 6. Product Management
+This provides a record of predictions generated through the application.
 
-The Product Management module implements CRUD operations.
+---
 
-The system allows users to:
+## Product Management
 
-View products
-Add products
-Edit products
-Delete products
+The Product Management module implements **CRUD (Create, Read, Update, Delete)** operations.
 
-Products already referenced by existing order records cannot be deleted, protecting relational database integrity.
+Users can:
 
-## 7. REST API
+- View products
+- Add products
+- Edit products
+- Delete products
 
-The application also provides REST API endpoints for product management.
+Products referenced by existing order records cannot be deleted, helping protect relational database integrity.
 
-Examples:
+---
 
-GET    /api/products/
-GET    /api/products/<product_id>
-POST   /api/products/
-PUT    /api/products/<product_id>
-DELETE /api/products/<product_id>
+## REST API
 
+The application provides REST API endpoints for product management.
 
-##Dataset
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/products/` | Retrieve all products |
+| GET | `/api/products/<product_id>` | Retrieve a specific product |
+| POST | `/api/products/` | Create a product |
+| PUT | `/api/products/<product_id>` | Update a product |
+| DELETE | `/api/products/<product_id>` | Delete a product |
 
-The project uses the Sample Superstore dataset.
+---
+
+## Dataset
+
+The project uses the **Sample Superstore** dataset.
 
 Important dataset fields include:
 
-Order ID
-Order Date
-Ship Date
-Ship Mode
-Customer ID
-Customer Name
-Segment
-Country
-City
-State
-Region
-Product ID
-Category
-Sub-Category
-Product Name
-Sales
-Quantity
-Discount
-Profit
-Database Design
+- Order ID
+- Order Date
+- Ship Date
+- Ship Mode
+- Customer ID
+- Customer Name
+- Segment
+- Country
+- City
+- State
+- Region
+- Product ID
+- Category
+- Sub-Category
+- Product Name
+- Sales
+- Quantity
+- Discount
+- Profit
 
-The original dataset was normalized into several relational database tables.
+---
 
-##Main tables:
+## Database Design
 
+The original dataset was normalized into multiple relational database tables.
+
+### Main Tables
+
+- Categories
+- Customers
+- Locations
+- Orders
+- OrderDetails
+- Products
+- ShipModes
+- SubCategories
+- PredictionHistory
+
+### Main Relationships
+
+```text
 Categories
-Customers
-Locations
-Orders
-OrderDetails
-Products
-ShipModes
-SubCategories
-PredictionHistory
-
-##Main relationships:
-
-Categories
     ↓
 SubCategories
     ↓
@@ -190,29 +214,34 @@ Products
     ↓
 OrderDetails
 
-
-
 Customers
     ↓
 Orders
     ↓
 OrderDetails
 
-
 ShipModes
     ↓
 Orders
 
-
 Locations
     ↓
 OrderDetails
+```
 
+The database schema is available in:
 
-##Application Architecture
+```text
+database/schema.sql
+```
 
-The application follows a layered architecture.
+---
 
+## Application Architecture
+
+The Flask application follows a layered architecture:
+
+```text
 MySQL Database
       ↓
 Repository Layer
@@ -224,200 +253,248 @@ Flask Routes
 Jinja Templates
       ↓
 Browser
+```
 
-##Repository Layer
+### Repository Layer
 
-Responsible for database queries and database access.
+Responsible for database access and SQL queries.
 
-##Service Layer
+### Service Layer
 
 Responsible for business logic and machine learning operations.
 
-##Route Layer
+### Route Layer
 
-Responsible for HTTP requests and communication between the browser, services, and templates.
+Responsible for handling HTTP requests and communication between services and templates.
 
-##Template Layer
+### Template Layer
 
-Responsible for presenting information to the user.
+Responsible for presenting application data to the user through the web interface.
 
-##Project Structure
+---
 
-AI_Sales_Prediction
+## Project Structure
+
+```text
+AI_Sales_Prediction/
 │
-├── .env
-├── .env.example
-├── .gitignore
-├── README.md
+├── data/
+│   ├── raw/
+│   │   └── superstore.csv
+│   └── processed/
+│       ├── forecast_df.csv
+│       └── model_validation.csv
 │
-├── ml
+├── database/
+│   └── schema.sql
+│
+├── etl/
+│   └── import_data.py
+│
+├── ml/
 │   ├── train_model.py
 │   ├── test_prediction.py
-│   │
-│   └── models
+│   └── models/
 │       ├── sales_prediction_model.pkl
 │       └── model_evaluation.csv
 │
-└── webapp
-    │
-    ├── app.py
-    ├── database.py
-    │
-    ├── routes
-    │   ├── home_routes.py
-    │   ├── product_routes.py
-    │   └── prediction_routes.py
-    │
-    ├── services
-    │   ├── dashboard_service.py
-    │   ├── product_service.py
-    │   └── prediction_service.py
-    │
-    ├── repositories
-    │   ├── dashboard_repository.py
-    │   ├── product_repository.py
-    │   └── prediction_repository.py
-    │
-    ├── templates
-    │   ├── base.html
-    │   ├── dashboard.html
-    │   ├── prediction.html
-    │   ├── prediction_history.html
-    │   ├── products.html
-    │   └── product_form.html
-    │
-    └── static
-        ├── css
-        │   └── style.css
-        │
-        └── js
-            └── app.js
+├── notebooks/
+│   ├── 01_data_understanding.ipynb
+│   ├── 02_data_cleaning.ipynb
+│   ├── 03_feature_engineering.ipynb
+│   ├── 04_eda.ipynb
+│   └── 05_sales_forecasting.ipynb
+│
+├── tests/
+│   └── test_database.py
+│
+├── webapp/
+│   ├── app.py
+│   ├── config.py
+│   ├── database.py
+│   │
+│   ├── repositories/
+│   │   ├── dashboard_repository.py
+│   │   ├── prediction_repository.py
+│   │   └── product_repository.py
+│   │
+│   ├── routes/
+│   │   ├── home_routes.py
+│   │   ├── prediction_routes.py
+│   │   └── product_routes.py
+│   │
+│   ├── services/
+│   │   ├── dashboard_service.py
+│   │   ├── prediction_service.py
+│   │   └── product_service.py
+│   │
+│   ├── static/
+│   │   └── css/
+│   │       └── style.css
+│   │
+│   └── templates/
+│       ├── base.html
+│       ├── dashboard.html
+│       ├── prediction.html
+│       ├── prediction_history.html
+│       ├── product_form.html
+│       └── products.html
+│
+├── .env.example
+├── .gitignore
+├── README.md
+└── requirements.txt
+```
 
+> The `.env` file is intentionally excluded from version control because it contains local configuration and credentials.
 
-##Technologies Used
+---
 
-Backend
-Python
-Flask
+## Technologies Used
 
-Database
-MySQL
-MySQL Connector/Python
+| Area | Technologies |
+|---|---|
+| Programming | Python |
+| Data Analysis | Pandas, NumPy |
+| Machine Learning | Scikit-learn |
+| ML Models | Linear Regression, Random Forest, Gradient Boosting |
+| Database | MySQL |
+| Backend | Flask |
+| Data Visualization | Plotly, Matplotlib |
+| Frontend | HTML, CSS, Jinja2 |
+| Development | Jupyter Notebook, VS Code |
+| Version Control | Git, GitHub |
 
-Machine Learning
-Scikit-learn
-Random Forest Regressor
-Linear Regression
-Gradient Boosting Regressor
+---
 
-Data Analysis
-Pandas
-NumPy
+## Installation
 
-Data Visualization
-Plotly
+### 1. Clone the Repository
 
-Frontend
-HTML
-CSS
-Jinja2
+```bash
+git clone <repository-url>
+cd AI-Sales-Prediction-Analytics
+```
 
-##Installation
+### 2. Create a Virtual Environment
 
-Install the required Python packages:
+```bash
+python -m venv venv
+```
 
-pip install flask
-pip install mysql-connector-python
-pip install pandas
-pip install numpy
-pip install scikit-learn
-pip install joblib
-pip install plotly
-pip install python-dotenv
+On Windows PowerShell:
 
-##Environment Configuration
+```powershell
+.\venv\Scripts\Activate.ps1
+```
 
-Create a .env file in the project root.
+### 3. Install Dependencies
 
-Example:
+```bash
+pip install -r requirements.txt
+```
 
+---
+
+## Environment Configuration
+
+Create a `.env` file in the project root.
+
+Use `.env.example` as a template:
+
+```env
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=your_mysql_password
 DB_NAME=your_database_name
-
 FLASK_SECRET_KEY=your_secret_key
+```
 
-##Running the Application
+**Never commit the real `.env` file or database credentials to GitHub.**
 
-Open PowerShell and navigate to the project directory:
+---
 
-cd C:\Users\nolee\Desktop\AI_Sales_Prediction
+## Database Setup
 
-Run:
+Create the database structure using:
 
+```text
+database/schema.sql
+```
+
+Then run the ETL script to load the Sample Superstore dataset into MySQL:
+
+```bash
+python etl/import_data.py
+```
+
+---
+
+## Running the Application
+
+From the project root, run:
+
+```bash
 python webapp/app.py
+```
 
-The Flask application should start on:
+The Flask development server will normally be available locally at:
 
+```text
 http://127.0.0.1:5000
+```
 
-Open this address in a web browser.
+### Application Pages
 
-Main Application Pages
-Dashboard
-http://127.0.0.1:5000/
+| Page | Local Route |
+|---|---|
+| Dashboard | `/` |
+| Sales Prediction | `/predict` |
+| Prediction History | `/prediction-history` |
+| Product Management | `/products` |
+| Products API | `/api/products/` |
 
-Sales Prediction
-http://127.0.0.1:5000/predict
+---
 
-Prediction History
-http://127.0.0.1:5000/prediction-history
-
-Product Management
-http://127.0.0.1:5000/products
-
-Products API
-http://127.0.0.1:5000/api/products/
-
-
-##Validation and Error Handling
+## Validation and Error Handling
 
 The application includes validation for:
 
-Missing form fields
-Invalid products
-Invalid quantities
-Invalid discounts
-Invalid dates
-Ship dates before order dates
-Duplicate Product IDs
-Missing products
-Product deletion conflicts
-Invalid API requests
+- Missing form fields
+- Invalid products
+- Invalid quantities
+- Invalid discounts
+- Invalid dates
+- Ship dates before order dates
+- Duplicate Product IDs
+- Missing products
+- Product deletion conflicts
+- Invalid API requests
 
-User-friendly flash messages are displayed rather than exposing internal application errors.
+User-friendly flash messages are displayed instead of exposing internal application errors.
 
-##Future Improvements
+---
 
-Possible extensions include:
+## Future Improvements
 
-User authentication
-Role-based access control
-More advanced machine learning models
-Hyperparameter optimization
-Additional dashboard filters
-Product search and pagination
-CSV/PDF report export
-Cloud deployment
-Scheduled model retraining
-Automated testing
+Potential extensions include:
 
+- User authentication
+- Role-based access control
+- Hyperparameter optimization
+- Additional feature engineering
+- Advanced machine learning models
+- Dashboard filters
+- Product search and pagination
+- CSV/PDF report export
+- Cloud deployment
+- Scheduled model retraining
+- Expanded automated testing
 
-##Conclusion
+---
 
-The AI Sales Prediction System demonstrates how data engineering, relational databases, machine learning, visualization, REST APIs, and web development can be combined into a complete data-driven application.
+## Conclusion
 
-The project provides both descriptive analytics through the sales dashboard and predictive analytics through the machine learning sales prediction module.
+The **AI Sales Prediction & Analytics System** demonstrates an end-to-end data science workflow that combines data preprocessing, exploratory analysis, feature engineering, relational database design, machine learning, visualization, REST APIs, and web application development.
 
-
+The project provides both **descriptive analytics** through the interactive sales dashboard and **predictive analytics** through the machine learning sales prediction module.

@@ -299,11 +299,12 @@ AI_Sales_Prediction/
 │       └── model_evaluation.csv
 │
 ├── notebooks/
-│   ├── 01_data_understanding.ipynb
-│   ├── 02_data_cleaning.ipynb
-│   ├── 03_feature_engineering.ipynb
-│   ├── 04_eda.ipynb
-│   └── 05_sales_forecasting.ipynb
+    ├── 01_data_understanding.ipynb
+    ├── 02_data_cleaning.ipynb
+    ├── 03_feature_engineering.ipynb
+    ├── 04_eda.ipynb
+    ├── 05_dashboard.ipynb
+    └── 06_sales_forecasting.ipynb
 │
 ├── tests/
 │   └── test_database.py
